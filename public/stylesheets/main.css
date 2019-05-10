@@ -1,3 +1,12 @@
+.text-center {
+  text-align: center;
+}
+
+.input-box {
+  width: 30%;
+  margin: 25px auto;
+}
+
 .thumbnail img {
   width: 100%;
 }
