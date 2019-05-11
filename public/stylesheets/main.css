@@ -1,7 +1,3 @@
-.text-center {
-  text-align: center;
-}
-
 .input-box {
   width: 30%;
   margin: 25px auto;
@@ -21,4 +17,9 @@
 
 .delete-form {
   display: inline;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
 }
