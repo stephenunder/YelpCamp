@@ -22,7 +22,7 @@ router.post("/register", (req, res) => {
       return res.render("register", {"error": err.message});
     }
     passport.authenticate("local")(req, res, () => {
-      req.flash("success", "Successfully Signed Up! Welcome to YelpCamp " + user.username);
+      req.flash("success", `Successfully Signed Up! Welcome to YelpCamp, ${user.username}.`);
       res.redirect("/campgrounds");
     });
   });
@@ -38,7 +38,7 @@ router.post("/login", passport.authenticate("local", {
   successRedirect: "/campgrounds",
   failureRedirect: "/login",
   failureFlash: true,
-  successFlash: "Welcome to YelpCamp!"
+  successFlash: "Welcome Back!"
 }), (req, res) => {
 });
 
