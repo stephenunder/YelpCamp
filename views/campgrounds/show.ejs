@@ -18,7 +18,7 @@
                 <h4><a><%=campground.name%></a></h4>
                 <p><%= campground.description %></p>
                 <p>
-                    <em>Submitted By <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
+                    <em>Submitted By: <a href="/users/<%= campground.author.id %>"><%= campground.author.username %></a>, <%= moment(campground.createdAt).fromNow() %></em>
                 </p>
                 <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
                     <a class="btn btn-xs btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
@@ -56,23 +56,23 @@
 
   <script>
     function initMap() {
-      var lat = <%= campground.lat %>;
-      var lng = <%= campground.lng %>;
-      var center = {lat: lat, lng: lng };
-      var map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 8,
+      let lat = <%= campground.lat %>;
+      let lng = <%= campground.lng %>;
+      let center = { lat, lng };
+      const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 12,
           center: center,
-          scrollwheel: false
+          scrollwheel: true
       });
-      var contentString = `
+      let contentString = `
         <strong><%= campground.name %><br />
         <%= campground.location %></strong>
         <p><%= campground.description %></p>
       `
-      var infowindow = new google.maps.InfoWindow({
+      let infowindow = new google.maps.InfoWindow({
         content: contentString
       });
-      var marker = new google.maps.Marker({
+      let marker = new google.maps.Marker({
           position: center,
           map: map
       });
