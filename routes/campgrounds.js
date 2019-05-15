@@ -12,17 +12,33 @@ const options = {
 };
 
 const geocoder = NodeGeocoder(options);
+const escapeRegex = text => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 
 // INDEX - show all campgrounds
 router.get("/", (req, res) => {
-  // Get all campgrounds from DB
-  Campground.find({}, (err, allCampgrounds) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("campgrounds/index", {campgrounds: allCampgrounds, page: 'campgrounds'});
-    }
-  });
+  let noMatch = null;
+  if (req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), "gi");
+    Campground.find({name: regex}, (err, allCampgrounds) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (allCampgrounds.length < 1) {
+          noMatch = "No campgrounds match that search, please try again.";
+        }
+        res.render("campgrounds/index", {campgrounds: allCampgrounds, noMatch: noMatch});
+      }
+    })
+  } else {
+    // Get all campgrounds from DB
+    Campground.find({}, (err, allCampgrounds) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("campgrounds/index", {campgrounds: allCampgrounds, noMatch: noMatch, page: 'campgrounds'});
+      }
+    });
+  }
 });
 
 // CREATE - add new campground to DB
