@@ -147,7 +147,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single("image"), 
       return res.redirect("back");
     }
     // find and update the correct campground
-    Campground.findById(req.params.id, req.body.campground, async (err, updatedCampground) => {
+    Campground.findById(req.params.id, async (err, updatedCampground) => {
       if (err) {
         req.flash("error", err.message);
         res.redirect("back");
