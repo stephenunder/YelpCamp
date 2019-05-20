@@ -1,34 +1,25 @@
 <% include ../partials/header %>
 
-  <div class="row">
-    <h1 class="text-center">Create a New Campground</h1>
-    <div class="input-box">
+  <div class="row justify-content-center">
+    <div class="col-md-12 text-center">
+      <h1 class="text-center">Create a New Campground</h1>
+    </div>
+    <div class="col-xs-12 col-md-6 col-lg-4">
       <form action="/campgrounds" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="name">Name *</label>
-          <input class="form-control" id="name" type="text" name="name" placeholder="name" autofocus required />
-        </div>
-        <div class="form-group">
-          <label for="image">Image *</label>
-          <input class="form-control" id="image" type="file" name="image" accept="image/*" required />
-        </div>
-        <div class="form-group">
-          <label for="price">Price *</label>
-          <input class="form-control" id="price" type="number" name="price" placeholder="price" min="0.00" step="0.01" required/>
-        </div>
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input class="form-control" id="location" type="text" name="location" placeholder="location">
-        </div>
-        <div class="form-group">
-          <label for="description">Description</label>
-          <input class="form-control" id="description" type="text" name="description" placeholder="description" />
-        </div>
-        <div class="form-group">
-          <button class="btn btn-lg btn-primary btn-block">Submit!</button>
-        </div>
+        <label for="name">Name <span class="form-required">*</span></label>
+        <input class="form-control" id="name" type="text" name="name" placeholder="name" autofocus required />
+        <label for="image">Image <span class="form-required">*</span></label>
+        <input class="form-control" id="image" type="file" name="image" accept="image/*" required />
+        <label for="price">Price <span class="form-required">*</span></label>
+        <input class="form-control" id="price" type="number" name="price" placeholder="price" min="0.00" step="0.01" required/>
+        <label for="location">Location</label>
+        <input class="form-control" id="location" type="text" name="location" placeholder="location">
+        <label for="description">Description</label>
+        <input class="form-control" id="description" type="text" name="description" placeholder="description" />
+        <button class="btn btn-lg btn-primary btn-block mt-3">Submit!</button>
+        <hr />
+        <a href="/campgrounds">Go Back</a>
       </form>
-      <a href="/campgrounds">Go Back</a>
     </div>
   </div>
 
