@@ -39,27 +39,48 @@ const escapeRegex = text => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 
 // INDEX - show all campgrounds
 router.get("/", (req, res) => {
+  const perPage = 8;
+  let pageQuery = parseInt(req.query.page);
+  let pageNumber = pageQuery ? pageQuery : 1;
   let noMatch = null;
   if (req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
-    Campground.find({name: regex}, (err, allCampgrounds) => {
-      if (err) {
-        console.log(err);
-      } else {
-        if (allCampgrounds.length < 1) {
-          noMatch = "No campgrounds match that search, please try again.";
+    Campground.find({name: regex}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, allCampgrounds) {
+      Campground.countDocuments({name: regex}).exec(function (err, count) {
+        if (err) {
+          console.log(err);
+          res.redirect("back");
+        } else {
+          if (allCampgrounds.length < 1) {
+            noMatch = "No campgrounds match that search, please try again.";
+          }
+          res.render("campgrounds/index", {
+            campgrounds: allCampgrounds,
+            current: pageNumber,
+            pages: Math.ceil(count / perPage),
+            noMatch: noMatch,
+            search: req.query.search,
+          });
         }
-        res.render("campgrounds/index", {campgrounds: allCampgrounds, noMatch: noMatch});
-      }
-    })
+      });
+    });
   } else {
     // Get all campgrounds from DB
-    Campground.find({}, (err, allCampgrounds) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("campgrounds/index", {campgrounds: allCampgrounds, noMatch: noMatch, page: 'campgrounds'});
-      }
+    Campground.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, allCampgrounds) {
+      Campground.countDocuments().exec(function (err, count) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("campgrounds/index", {
+            campgrounds: allCampgrounds,
+            current: pageNumber,
+            noMatch: noMatch,
+            page: "campgrounds",
+            pages: Math.ceil(count / perPage),
+            search: false,
+          });
+        }
+      });
     });
   }
 });
