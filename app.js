@@ -13,12 +13,13 @@ const User = require("./models/user");
 const seedDB = require("./seeds");
 
 // requiring routes
-const commentRoutes = require("./routes/comments");
 const campgroundRoutes = require("./routes/campgrounds");
+const commentRoutes = require("./routes/comments");
 const indexRoutes = require("./routes/index");
+const reviewRoutes = require("./routes/reviews");
 
-
-mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
+const url = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp";
+mongoose.connect(url, { useNewUrlParser: true });
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 app.use(bodyParser.urlencoded({extended: true}));
@@ -52,7 +53,8 @@ app.use((req, res, next) => {
 app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/campgrounds/:id/reviews", reviewRoutes);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, process.env.IP, () => {
   console.log("The YelpCamp Server Has Started!");
 });

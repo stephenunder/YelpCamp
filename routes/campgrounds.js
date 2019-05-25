@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Campground = require("../models/campground");
+const Comment = require("../models/comment");
+const Review = require("../models/review");
 const middleware = require("../middleware");
 const NodeGeocoder = require("node-geocoder");
 const multer = require("multer");
@@ -137,7 +139,10 @@ router.get("/new", middleware.isLoggedIn, (req, res) => {
 // SHOW - shows more info about one campground
 router.get("/:id", (req, res) => {
   // find the campground with provided ID
-  Campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
+  Campground.findById(req.params.id).populate("comments").populate({
+    path: "reviews",
+    options: {sort: {createdAt: -1}}
+  }).exec((err, foundCampground) => {
     if (err || !foundCampground) {
       req.flash("error", "Campground not found");
       res.redirect("back");
@@ -167,6 +172,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single("image"), 
       req.flash("error", "Invalid address");
       return res.redirect("back");
     }
+    delete req.body.campground.rating;
     // find and update the correct campground
     Campground.findById(req.params.id, async (err, updatedCampground) => {
       if (err) {

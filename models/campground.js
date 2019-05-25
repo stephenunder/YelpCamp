@@ -26,6 +26,16 @@ const campgroundSchema = new mongoose.Schema({
       ref: "Comment",
     }
   ],
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review",
+    }
+  ],
+  rating: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("Campground", campgroundSchema);

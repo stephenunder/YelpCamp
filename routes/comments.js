@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router({mergeParams: true});
 const Campground = require("../models/campground");
 const Comment = require("../models/comment");
-const middleware = require("../middleware")
+const middleware = require("../middleware");
 
 // Comments New
 router.get("/new", middleware.isLoggedIn, (req, res) => {
@@ -13,7 +13,7 @@ router.get("/new", middleware.isLoggedIn, (req, res) => {
     } else {
       res.render("comments/new", {campground: campground});
     }
-  })
+  });
 });
 
 // Comments Create

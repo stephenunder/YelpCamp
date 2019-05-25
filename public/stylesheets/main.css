@@ -75,6 +75,10 @@ body {
   display: inline-block;
 }
 
+.checked {
+  color: #fa7203;
+}
+
 #map {
   height: 400px;
   width: 100%;

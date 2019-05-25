@@ -10,7 +10,7 @@
         <form action="/campgrounds" method="GET" class="form-inline">
           <div class="form-group">
             <input class="form-control" type="text" name="search" placeholder="Campground search...">
-            <button class="btn btn-info ml-2">Search</button>
+            <button class="btn btn-success ml-2">Search</button>
           </div>
         </form>
       </p>
@@ -29,12 +29,24 @@
           <img class="card-img-top" src=" <%= campground.image %> " alt="<%= campground.name %>" />
           <div class="card-body">
             <h5 class="card-title"><%= campground.name %></h5>
-            <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">More Info</a>
+            <% if (campground.rating === 0) { %>
+              <em>No reviews yet.</em>
+            <% } else { %>
+              <i class="fas fa-star checked"></i>
+              <i class="fas fa-star <% if (campground.rating > 1.5) { %> checked <% } %>"></i>
+              <i class="fas fa-star <% if (campground.rating > 2.5) { %> checked <% } %>"></i>
+              <i class="fas fa-star <% if (campground.rating > 3.5) { %> checked <% } %>"></i>
+              <i class="fas fa-star <% if (campground.rating > 4.5) { %> checked <% } %>"></i>
+            <% } %>
+            <p>
+              <a href="/campgrounds/<%= campground._id %>" class="btn btn-secondary">More Info</a>
+            </p>
           </div>
         </div>
       </div>
     <% }); %>
   </div>
+
   <nav aria-label="Page navigation">
     <% if (pages && pages > 0) { %>
     <ul class="pagination justify-content-center">
@@ -47,7 +59,6 @@
         <a class="page-link" href="/campgrounds<% if(search){%>?search=<%= search %><%}%>">First</a>
       </li>
       <% } %>
-
       <% if (current == 1) { %>
       <li class="page-item disabled">
         <a class="page-link">«</a>
@@ -57,7 +68,6 @@
         <a class="page-link" href="/campgrounds?page=<%= Number(current) - 1 %><% if(search){%>&search=<%= search %><%}%>">«</a>
       </li>
       <% } %>
-
       <% let i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
       <% if (i !== 1) { %>
       <li class="page-item disabled">
@@ -80,7 +90,6 @@
       </li>
       <% } %>
       <% } %>
-
       <% if (current == pages) { %>
       <li class="page-item disabled">
         <a class="page-link">»</a>
@@ -90,7 +99,6 @@
         <a class="page-link" href="/campgrounds?page=<%= Number(current) + 1 %><% if(search){%>&search=<%= search %><%}%>">»</a>
       </li>
       <% } %>
-
       <% if (current == pages) { %>
       <li class="page-item disabled">
         <a class="page-link">Last</a>
