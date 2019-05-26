@@ -20,7 +20,7 @@
           </p>
           <hr />
           <p class="card-text"><%= campground.description %></p>
-          <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+          <% if (currentUser && currentUser._id.equals(campground.author.id)) { %>
           <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
           <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
             <button class="btn btn-sm btn-danger">Delete</button>
@@ -58,7 +58,7 @@
               <div class="row">
                 <div class="col-md-3">
                   <%- '<i class="fas fa-star checked"></i>'.repeat(review.rating) %><%- '<i class="fas fa-star"></i>'.repeat(5 - review.rating) %>
-                    <div>Review by: <strong><%= review.author.username %></strong></div>
+                    <div>Review by: <strong><a href="/users/<%= review.author.id %>"><%= review.author.username %></a></strong></div>
                     <span><em><%= review.updatedAt.toDateString() %></em></span>
                 </div>
                 <div class="col-md-9">
@@ -76,7 +76,7 @@
               <hr>
             <% }); %>
             <div style="margin-bottom: 10px;">
-              <h4><a href="/campgrounds/<%= campground._id %>/reviews"><i class="fas fa-search" aria-hidden="true"></i> See all reviews</a></h4>
+              <h5><a href="/campgrounds/<%= campground._id %>/reviews"><i class="fas fa-search" aria-hidden="true"></i> See all reviews</a></h5>
             </div>
           <% } %>
           <div>
@@ -94,8 +94,8 @@
           </span>
           <!-- Comment section title -->
           <!-- Collapse Add a comment form START -->
-          <div class="collapse" id="collapseComment">
-            <div class="card" style="border-left: 5px solid #00C851;">
+          <div class="collapse mt-2" id="collapseComment">
+            <div class="card p-3" style="border-left: 5px solid #00C851;">
               <% if (!currentUser) { %>
                 <!-- If the user is not logged in, direct him to the login page -->
                 <h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
@@ -155,7 +155,7 @@
                     </form>
                     <!-- Edit comment form -->
                     <div class="collapse" id="collapseEdit<%= comment._id %>">
-                      <div class="card" style="border-left: 5px solid #ffbb33; margin-top: 15px;">
+                      <div class="card p-3" style="border-left: 5px solid #ffbb33; margin-top: 15px;">
                         <h4>Edit your comment <i class="fas fa-edit" aria-hidden="true"></i></h4>
                         <form id="edit-comment-form<%= comment._id %>" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
                           <div class="form-group">

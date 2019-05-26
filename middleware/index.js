@@ -53,6 +53,7 @@ middlewareObj.checkReviewOwnership = function(req, res, next) {
   if (req.isAuthenticated()) {
     Review.findById(req.params.review_id, (err, foundReview) => {
       if (err || !foundReview) {
+        req.flash("error", "Review not found.");
         res.redirect("back");
       } else {
         if (foundReview.author.id.equals(req.user._id)) {

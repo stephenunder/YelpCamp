@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../models/user");
-const async = require("async");
-const nodemailer = require("nodemailer");
-const crypto = require("crypto");
 
 // root route
 router.get("/", (req, res) => res.render("landing"));
