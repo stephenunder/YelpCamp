@@ -15,6 +15,11 @@ body {
   text-shadow: 2px 2px 10px #000;
 }
 
+#landing-header h3 {
+  color: #FFF;
+  text-shadow: 2px 2px 10px #000;
+}
+
 .footer {
   display: none;
 }
@@ -42,7 +47,7 @@ body {
   background-repeat: no-repeat;
   opacity: 0;
   z-index: 0;
-  animation: imageAnimation 50s linear infinite;
+  animation: imageAnimation 25s linear infinite;
 }
 
 .slideshow li:nth-child(1) {
@@ -50,19 +55,19 @@ body {
 }
 .slideshow li:nth-child(2) {
   background-image: url(http://i.imgur.com/SBEmFpv.jpg);
-  animation-delay: 10s;
+  animation-delay: 5s;
 }
 .slideshow li:nth-child(3) {
   background-image: url(http://i.imgur.com/emvhOnb.jpg);
-  animation-delay: 20s;
+  animation-delay: 10s;
 }
 .slideshow li:nth-child(4) {
   background-image: url(http://i.imgur.com/2LSMCmJ.jpg);
-  animation-delay: 30s;
+  animation-delay: 15s;
 }
 .slideshow li:nth-child(5) {
   background-image: url(http://i.imgur.com/TVGe0Ef.jpg);
-  animation-delay: 40s;
+  animation-delay: 20s;
 }
 
 @keyframes imageAnimation {
@@ -80,9 +85,4 @@ body {
   30% {
     opacity: 0
   }
-}
-
-/* Older browser support - .no-cssanimations class added by modernizr */
-.no-cssanimations .slideshow li {
-	opacity: 1;
 }
