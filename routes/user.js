@@ -24,7 +24,10 @@ router.get("/:id", (req, res) => {
 // show edit form
 router.get("/:id/edit", middleware.isLoggedIn, (req, res) => {
   User.findById(req.params.id, (err, foundUser) => {
-    if (err || !foundUser) { return res.redirect("back"); }
+    if (err || !foundUser) {
+      req.flash("error", "User not found.");
+      return res.redirect("back");
+    }
     if (foundUser._id.equals(req.user._id)) {
       res.render("users/edit", { user: foundUser });
     } else {

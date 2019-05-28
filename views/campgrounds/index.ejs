@@ -4,19 +4,20 @@
       <h1><i class="fas fa-campground"></i> Welcome to YelpCamp!</h1>
       <p>View our hand-picked campgrounds from all over the world</p>
       <p>
-        <a class="btn btn-primary btn-lg" href="/campgrounds/new">Add New Campground</a>
+        <a class="btn btn-primary btn-lg" href="/campgrounds/new"><i class="fas fa-plus"></i> Add New Campground</a>
       </p>
       <p>
         <form action="/campgrounds" method="GET" class="form-inline">
           <div class="form-group">
             <input class="form-control" type="text" name="search" placeholder="Campground search...">
-            <button class="btn btn-success ml-2">Search</button>
+            <button class="btn btn-success ml-2"><i class="fas fa-search"></i> Search</button>
           </div>
         </form>
       </p>
     </div>
   </header>
 
+  <!-- rating star display -->
   <div class="row text-center" id="campground-grid">
     <% campgrounds.forEach(campground => { %>
       <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
@@ -34,7 +35,7 @@
               <i class="fas fa-star <% if (campground.rating > 4.5) { %> checked <% } %>"></i>
             <% } %>
             <p class="mt-3">
-              <a href="/campgrounds/<%= campground._id %>" class="btn btn-secondary">More Info</a>
+              <a href="/campgrounds/<%= campground._id %>" class="btn btn-secondary"><i class="fas fa-info-circle"></i> More Info</a>
             </p>
           </div>
         </div>
@@ -42,6 +43,7 @@
     <% }); %>
   </div>
 
+  <!-- pagination -->
   <nav aria-label="Page navigation">
     <% if (pages && pages > 0) { %>
     <ul class="pagination justify-content-center">

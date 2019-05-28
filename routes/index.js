@@ -7,7 +7,7 @@ const User = require("../models/user");
 router.get("/", (req, res) => res.render("landing"));
 
 // show register form
-router.get("/register", (req, res) => res.render("register", {page: 'register'}));
+router.get("/register", (req, res) => res.render("register", {page: "register"}));
 
 // handle sign up logic
 router.post("/register", (req, res) => {
@@ -38,7 +38,7 @@ router.post("/register", (req, res) => {
 });
 
 // show login form
-router.get("/login", (req, res) => res.render("login", {page: 'login'}));
+router.get("/login", (req, res) => res.render("login", {page: "login"}));
 
 // handle login logic
 router.post("/login", (req, res, next) => {
