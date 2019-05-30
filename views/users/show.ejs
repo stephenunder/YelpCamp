@@ -7,7 +7,9 @@
         <div class="caption">
           <a href="mailto:<%= user.email %>"><%= user.email %></a>
           <hr />
+          <% if (currentUser && currentUser._id.equals(user.id)) { %>
           <a href="/users/<%= user._id %>/edit">Edit Profile</a>
+          <% } %>
         </div>
       </div>
     </div>

@@ -6,10 +6,10 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 
 // forgot password
-router.get("/forgot", (req, res) => res.render("forgot"));
+router.get("/password_reset", (req, res) => res.render("password_reset"));
 
 // send confirmation email
-router.post("/forgot", (req, res, next) => {
+router.post("/password_reset", (req, res, next) => {
   async.waterfall([
     function(done) {
       crypto.randomBytes(20, (err, buf) => {
@@ -22,7 +22,7 @@ router.post("/forgot", (req, res, next) => {
         if (err) throw err;
         if (!user) {
           req.flash("error", "No account with that email address found.");
-          return res.redirect("/forgot");
+          return res.redirect("/password_reset");
         }
 
         user.resetPasswordToken = token;
@@ -58,7 +58,7 @@ router.post("/forgot", (req, res, next) => {
     }
   ], err => {
     if (err) return next(err);
-    res.redirect("/forgot");
+    res.redirect("/password_reset");
   });
 });
 
