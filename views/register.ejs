@@ -1,26 +1,40 @@
 <% include ./partials/header %>
-
-<div class="row">
-  <div class="col-md-12">
-    <h1 class="text-center">Sign Up</h1>
-    <form class="form-signin" action="/register" method="POST">
-      <label for="username">Username <span class="form-required">*</span></label>
-      <input class="form-control" id="username" type ="text" name="username" placeholder="username" autofocus/>
-      <label for="password">Password <span class="form-required">*</span></label>
-      <input class="form-control" id="password" type="password" name="password" placeholder="password" />
-      <label for="firstName">First Name</label>
-      <input class="form-control" id="firstName" type ="text" name="firstName" placeholder="first name" />
-      <label for="lastName">Last Name</label>
-      <input class="form-control" id="lastName" type ="text" name="lastName" placeholder="last name" />
-      <label for="email">Email <span class="form-required">*</span></label>
-      <input class="form-control" id="email" type ="email" name="email" placeholder="joe@email.com" />
-      <label for="avatar">Profile Photo</label>
-      <input class="form-control" id="avatar" type="text" name="avatar" placeholder="avatar url" autocomplete="off" />
-      <button class="btn btn-lg btn-primary btn-block mt-3">Sign Up!</button>
+<div class="row justify-content-center">
+  <div class="col-md-12 text-center">
+    <h1>Sign Up</h1>
+  </div>
+  <div class="col-xs-12 col-md-6 col-lg-4">
+    <form class="form-signin" action="/register" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="username">Username <span class="form-required">*</span></label>
+        <input class="form-control" id="username" type ="text" name="username" placeholder="username" autofocus/>
+      </div>
+      <div class="form-group">
+        <label for="password">Password <span class="form-required">*</span></label>
+        <input class="form-control" id="password" type="password" name="password" placeholder="password" />
+      </div>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input class="form-control" id="firstName" type ="text" name="firstName" placeholder="first name" />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input class="form-control" id="lastName" type ="text" name="lastName" placeholder="last name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email <span class="form-required">*</span></label>
+        <input class="form-control" id="email" type ="email" name="email" placeholder="your email" />
+      </div>
+      <div class="form-group">
+        <label for="avatar">Profile Photo</label>
+        <input class="form-control-file" id="avatar" type="file" name="avatar" accept="image/*" />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-primary btn-block mt-3">Sign Up!</button>
+      </div>
       <hr />
       <a href="/campgrounds">Go Back</a>
     </form>
   </div>
 </div>
-
 <% include ./partials/footer %>
