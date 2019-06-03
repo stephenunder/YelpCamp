@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const passport = require("passport");
+const session = require("express-session");
 const LocalStrategy = require("passport-local");
 const methodOverride = require("method-override");
 const User = require("./models/user");
@@ -32,16 +33,16 @@ app.locals.moment = require("moment");
 // seedDB(); // seed the database
 
 // PASSPORT CONFIGURATION
-app.use(require("express-session")({
-  secret: "Once again Morris and Pete are cute",
+app.use(session({
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(User.authenticate()));
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
